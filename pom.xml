@@ -23,11 +23,11 @@
         </dependency>
         <!--for logging purposes-->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-simple</artifactId>-->
-<!--            <version>1.7.7</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.slf4j</groupId>-->
+        <!--            <artifactId>slf4j-simple</artifactId>-->
+        <!--            <version>1.7.7</version>-->
+        <!--        </dependency>-->
 
 
         <!-- log4j2 -->
@@ -64,7 +64,33 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <!--package as one fat jar-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.events.kafka.streams.StreamStarterApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
